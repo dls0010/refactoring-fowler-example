@@ -2,10 +2,10 @@ package ubu.gii.dass.refactoring;
 /**
  * Tema Refactorizaciones
  * 
- * Ejemplo de aplicación de refactorizaciones. Actualizado para colecciones
- * genéricas de java 1.5
+ * Ejemplo de aplicaciï¿½n de refactorizaciones. Actualizado para colecciones
+ * genï¿½ricas de java 1.5
  * 
- * @author M. Fowler y <A HREF="mailto:clopezno@ubu.es">Carlos López</A>
+ * @author M. Fowler y <A HREF="mailto:clopezno@ubu.es">Carlos Lï¿½pez</A>
  * @version 1.1
  * @see java.io.File
  * 
@@ -25,6 +25,26 @@ public class Rental {
 
 	public Movie getMovie() {
 		return _movie;
+	}
+
+	double amountFor() {
+		double result = 0;
+		switch (getMovie().getPriceCode()) {
+		case Movie.REGULAR:
+			result += 2;
+			if (getDaysRented() > 2)
+				result += (getDaysRented() - 2) * 1.5;
+			break;
+		case Movie.NEW_RELEASE:
+			result += getDaysRented() * 3;
+			break;
+		case Movie.CHILDRENS:
+			result += 1.5;
+			if (getDaysRented() > 3)
+				result += (getDaysRented() - 3) * 1.5;
+			break;
+		}
+		return result;
 	}
 
 }
