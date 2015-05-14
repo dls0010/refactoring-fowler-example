@@ -47,7 +47,7 @@ public class Rental {
 		return result;
 	}
 
-	int getFrecuentRenterPoints(Customer customer) {
+	public int getFrecuentRenterPoints(Customer customer) {
 		if ((getMovie().getPriceCode() == Movie.NEW_RELEASE)
 				&& getDaysRented() > 1)
 			customer.frequentRenterPoints++;
