@@ -55,7 +55,6 @@ public class VideoClubTest extends TestCase {
 				+ "<P>You earned 8 frequent renter points </P>");
 
 		assertTrue("Calcula mal el alquiler", salidaEsperada.equals(salida));
-		System.out.println(salidaHTML);
 		
 		assertTrue("Calcula mal el alquiler HTML", salidaEsperadaHTML.equals(salidaHTML));
 
