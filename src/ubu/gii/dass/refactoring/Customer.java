@@ -15,6 +15,7 @@ import java.util.*;
 public class Customer {
 	private String _name;
 	private List<Rental> _rentals;
+	private int frequentRenterPoints = 0;
 
 	public Customer(String name) {
 		_name = name;
@@ -32,7 +33,6 @@ public class Customer {
 
 	public String statement() {
 		double totalAmount = 0;
-		int frequentRenterPoints = 0;
 		Iterator<Rental> rentals = _rentals.iterator();
 		String result = "Rental Record for " + getName() + "\n";
 		while (rentals.hasNext()) {
@@ -45,7 +45,7 @@ public class Customer {
 			frequentRenterPoints++;
 			// add bonus for a two day new release rental
 			frequentRenterPoints = getFrecuentRenterPoints(
-					frequentRenterPoints, each);
+					each);
 			// show figures for this rental
 			result += "\t" + each.getMovie().getTitle() + "\t"
 					+ String.valueOf(thisAmount) + "\n";
@@ -58,7 +58,7 @@ public class Customer {
 		return result;
 	}
 
-	private int getFrecuentRenterPoints(int frequentRenterPoints, Rental each) {
+	private int getFrecuentRenterPoints(Rental each) {
 		if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE)
 				&& each.getDaysRented() > 1)
 			frequentRenterPoints++;
