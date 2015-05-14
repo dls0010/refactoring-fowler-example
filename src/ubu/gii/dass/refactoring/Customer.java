@@ -15,7 +15,7 @@ import java.util.*;
 public class Customer {
 	private String _name;
 	private List<Rental> _rentals;
-	private int frequentRenterPoints = 0;
+	int frequentRenterPoints = 0;
 
 	public Customer(String name) {
 		_name = name;
@@ -44,8 +44,8 @@ public class Customer {
 			// add frequent renter points
 			frequentRenterPoints++;
 			// add bonus for a two day new release rental
-			frequentRenterPoints = getFrecuentRenterPoints(
-					each);
+			frequentRenterPoints = each.getFrecuentRenterPoints(
+					this);
 			// show figures for this rental
 			result += "\t" + each.getMovie().getTitle() + "\t"
 					+ String.valueOf(thisAmount) + "\n";
@@ -57,11 +57,30 @@ public class Customer {
 				+ " frequent renter points";
 		return result;
 	}
-
-	private int getFrecuentRenterPoints(Rental aRental) {
-		if ((aRental.getMovie().getPriceCode() == Movie.NEW_RELEASE)
-				&& aRental.getDaysRented() > 1)
+	public String htmlStatement() {
+		double totalAmount = 0;
+		Iterator<Rental> rentals = _rentals.iterator();
+		String result = "<H1>Rental Record for " + getName() + "</H1>";
+		while (rentals.hasNext()) {
+			double thisAmount = 0;
+			Rental each = rentals.next();
+			// determine amounts for each line
+			thisAmount = each.getCharge();
+			
+			// add frequent renter points
 			frequentRenterPoints++;
-		return frequentRenterPoints;
+			// add bonus for a two day new release rental
+			frequentRenterPoints = each.getFrecuentRenterPoints(
+					this);
+			// show figures for this rental
+			result += "<H2>" +each.getMovie().getTitle() + " "
+					+ String.valueOf(thisAmount) + "</H2>";
+			totalAmount += thisAmount;
+		}
+		// add footer lines
+		result += "<P> Amount owed is " + String.valueOf(totalAmount) + "</P>";
+		result += "<P>You earned " + String.valueOf(frequentRenterPoints)
+				+ " frequent renter points </P>";
+		return result;
 	}
 }

@@ -4,10 +4,10 @@ import junit.framework.*;
 /**
  * Tema Refactorizaciones
  * 
- * Ejemplo de aplicación de refactorizaciones. Actualizado para colecciones
- * genéricas de java 1.5
+ * Ejemplo de aplicaciï¿½n de refactorizaciones. Actualizado para colecciones
+ * genï¿½ricas de java 1.5
  * 
- * @author M. Fowler y <A HREF="mailto:clopezno@ubu.es">Carlos López</A>
+ * @author M. Fowler y <A HREF="mailto:clopezno@ubu.es">Carlos Lï¿½pez</A>
  * @version 1.1
 
  * 
@@ -42,15 +42,25 @@ public class VideoClubTest extends TestCase {
 		c1.addRental(r3);
 
 		String salida = c1.statement();
+		String salidaHTML = c1.htmlStatement();
 
 		String salidaEsperada = new String("Rental Record for Manuel\n"
 				+ "\tSky Captain\t15.0\n" + "\tAccion Mutante\t2.0\n"
 				+ "\tHermano Oso\t12.0\n" + "Amount owed is 29.0\n"
 				+ "You earned 4 frequent renter points");
 
+		String salidaEsperadaHTML = new String("<H1>Rental Record for Manuel</H1>"
+				+ "<H2>Sky Captain 15.0</H2>" + "<H2>Accion Mutante 2.0</H2>"
+				+ "<H2>Hermano Oso 12.0</H2>" + "<P> Amount owed is 29.0</P>"
+				+ "<P>You earned 8 frequent renter points </P>");
+
 		assertTrue("Calcula mal el alquiler", salidaEsperada.equals(salida));
+		System.out.println(salidaHTML);
+		
+		assertTrue("Calcula mal el alquiler HTML", salidaEsperadaHTML.equals(salidaHTML));
 
 	}
+
 
 	public static void main(String[] args) {
 		junit.textui.TestRunner.run(suite());
